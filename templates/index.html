@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+</head>
+<body>
+    <h1>Chatbot</h1>
+    
+    <form id="chat-form" action="/ask" method="POST">
+        <label for="user_input">Your Message:</label>
+        <input type="text" id="user_input" name="user_input" required>
+        
+        <label for="model_type">Select Model:</label>
+        <select id="model_type" name="model_type" required>
+            <option value="gemini">Gemini</option>
+            <option value="huggingface">Hugging Face</option>
+        </select>
+
+        <label for="huggingface_model" id="huggingface_model_label" style="display: none;">Select Hugging Face Model:</label>
+        <input type="text" id="huggingface_model" name="huggingface_model" placeholder="e.g., gpt-3.5-turbo" style="display: none;">
+
+        <button type="submit">Send</button>
+    </form>
+
+    <h2>Response:</h2>
+    <div id="response"></div>
+
+    <script>
+        // Toggle Hugging Face model input based on selected model
+        document.getElementById("model_type").addEventListener("change", function() {
+            const modelType = this.value;
+            const huggingfaceModelInput = document.getElementById("huggingface_model");
+            const huggingfaceModelLabel = document.getElementById("huggingface_model_label");
+
+            if (modelType === "huggingface") {
+                huggingfaceModelInput.style.display = "block";
+                huggingfaceModelLabel.style.display = "block";
+            } else {
+                huggingfaceModelInput.style.display = "none";
+                huggingfaceModelLabel.style.display = "none";
+            }
+        });
+
+        // Handle form submission via AJAX to avoid page reload
+        document.getElementById("chat-form").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            fetch("/ask", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("response").innerText = data.response;
+            })
+            .catch(error => {
+                document.getElementById("response").innerText = "Error: " + error;
+            });
+        });
+    </script>
+</body>
+</html>

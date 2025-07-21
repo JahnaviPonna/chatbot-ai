@@ -1,0 +1,50 @@
+Default Light Mode
+body {
+    background-color: white;
+    color: black;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark Mode */
+.dark-mode body {
+    background-color: #121212;
+    color: white;
+}
+
+/* Sidebar */
+.sidebar-content {
+    background-color: #f8f9fa;
+}
+
+/* Dark Mode Sidebar */
+.dark-mode .sidebar-content {
+    background-color: #1E1E1E;
+}
+
+/* Chat Message Styling */
+.chat-message {
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* Light Mode Chat */
+.user-message {
+    background-color: #DCF8C6;
+    text-align: right;
+}
+
+.assistant-message {
+    background-color: #ECECEC;
+}
+
+/* Dark Mode Chat */
+.dark-mode .user-message {
+    background-color: #076D6D;
+    color: white;
+}
+
+.dark-mode .assistant-message {
+    background-color: #333;
+    color: white;
+}
